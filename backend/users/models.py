@@ -31,6 +31,16 @@ class CustomUserManager(BaseUserManager):
 
         return self.create_user(iin, password, **extra_fields)
 
+    def update_user_from_external_source(self, user_iin):
+        with connections['external_db'].cursor() as cursor:
+            cursor.execute("SELECT * FROM external_table WHERE iin = %s", [user_iin])
+            external_data = cursor.fetchone()
+
+            if external_data:
+                user = self.model.objects.using('default').get(iin=user_iin)
+                user.some_field = external_data['some_field']
+                user.save(using='default')
+
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     iin = models.CharField(max_length=12, unique=True)
     is_staff = models.BooleanField(default=False)
