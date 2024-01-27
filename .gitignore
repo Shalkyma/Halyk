@@ -1,108 +1,113 @@
-# Flutter
+# Flutter (frontend)
 ## General
-.flutter-plugins
-.flutter-plugins-dependencies
-.flutter-local.properties
+/frontend/.flutter-plugins
+/frontend/.flutter-plugins-dependencies
+/frontend/.flutter-local.properties
 
 ## Dart
-.dart_tool/
-.packages
-.pub-cache/
-.pub/
-build/
+/frontend/.dart_tool/
+/frontend/.packages
+/frontend/.pub-cache/
+/frontend/.pub/
+/frontend/build/
 
-## Android
-**/android/**/gradle-wrapper.jar
-**/android/.gradle
-**/android/captures/
-**/android/gradlew
-**/android/gradlew.bat
-**/android/local.properties
-**/android/**/GeneratedPluginRegistrant.java
+## Android specific to Flutter
+/frontend/android/**/gradle-wrapper.jar
+/frontend/android/.gradle
+/frontend/android/captures/
+/frontend/android/gradlew
+/frontend/android/gradlew.bat
+/frontend/android/local.properties
+/frontend/android/**/GeneratedPluginRegistrant.java
 
-## iOS
-**/ios/**/Flutter/Flutter.framework
-**/ios/**/Flutter/Flutter.podspec
-**/ios/.symlinks/
-**/ios/Flutter/flutter_export_environment.sh
-**/ios/Flutter/Generated.xcconfig
-**/ios/Flutter/App.framework
-**/ios/Flutter/FlutterPluginRegistrant/
-**/ios/Flutter/GeneratedPluginRegistrant.h
-**/ios/Flutter/GeneratedPluginRegistrant.m
-**/ios/Runner/GeneratedPluginRegistrant.*
-**/ios/Pods/
-**/ios/.generated/
-**/ios/Flutter/ephemeral/
+## iOS specific to Flutter
+/frontend/ios/**/Flutter/Flutter.framework
+/frontend/ios/**/Flutter/Flutter.podspec
+/frontend/ios/.symlinks/
+/frontend/ios/Flutter/flutter_export_environment.sh
+/frontend/ios/Flutter/Generated.xcconfig
+/frontend/ios/Flutter/App.framework
+/frontend/ios/Flutter/FlutterPluginRegistrant/
+/frontend/ios/Flutter/GeneratedPluginRegistrant.h
+/frontend/ios/Flutter/GeneratedPluginRegistrant.m
+/frontend/ios/Runner/GeneratedPluginRegistrant.*
+/frontend/ios/Pods/
+/frontend/ios/.generated/
+/frontend/ios/Flutter/ephemeral/
 
-# Xcode
-**/ios/**/*.mode1v3
-**/ios/**/*.mode2v3
-**/ios/**/*.moved-aside
-**/ios/**/*.pbxuser
-**/ios/**/*.perspectivev3
-**/ios/**/*.xccheckout
-**/ios/**/*.xcscmblueprint
-**/ios/**/xcuserdata
-**/ios/**/*.xcuserstate
-**/ios/**/*.xcodeproj
-**/ios/**/*.xcodeproj/xcshareddata/
-**/ios/**/*.xcodeproj/xcuserdata/
-**/ios/**/*.xcworkspace
-**/ios/**/*.xcworkspace/xcshareddata/
-**/ios/**/*.xcworkspace/xcuserdata/
+# Xcode for Flutter
+/frontend/ios/**/*.mode1v3
+/frontend/ios/**/*.mode2v3
+/frontend/ios/**/*.moved-aside
+/frontend/ios/**/*.pbxuser
+/frontend/ios/**/*.perspectivev3
+/frontend/ios/**/*.xccheckout
+/frontend/ios/**/*.xcscmblueprint
+/frontend/ios/**/xcuserdata
+/frontend/ios/**/*.xcuserstate
+/frontend/ios/**/*.xcodeproj
+/frontend/ios/**/*.xcodeproj/xcshareddata/
+/frontend/ios/**/*.xcodeproj/xcuserdata/
+/frontend/ios/**/*.xcworkspace
+/frontend/ios/**/*.xcworkspace/xcshareddata/
+/frontend/ios/**/*.xcworkspace/xcuserdata/
 
-# IntelliJ
-.idea/
-*.iml
-*.ipr
-*.iws
-**/.idea/modules.xml
-**/.idea/workspace.xml
+# IntelliJ for Flutter
+/frontend/.idea/
+/frontend/*.iml
+/frontend/*.ipr
+/frontend/*.iws
+/frontend/**/.idea/modules.xml
+/frontend/**/.idea/workspace.xml
 
-# VS Code
-.vscode/
+# VS Code for Flutter
+/frontend/.vscode/
 
-# Mac
-.DS_Store
+# Mac specific to Flutter
+/frontend/.DS_Store
 
-# Windows
-Thumbs.db
+# Windows specific to Flutter
+/frontend/Thumbs.db
 
-# Django
-*.pyc
-__pycache__/
-*.pyo
-*.pyd
-.Python
-db.sqlite3
-*.sqlite3
-*.log
-local_settings.py
-media
+# Django (backend)
+/backend/*.pyc
+/backend/__pycache__/
+/backend/*.pyo
+/backend/*.pyd
+/backend/.Python
+/backend/db.sqlite3
+/backend/*.sqlite3
+/backend/*.log
+/backend/local_settings.py
+/backend/media
 
-# Static files
-/static
-*.css
-*.css.map
-*.js
-*.js.map
+# Django static files
+/backend/static
+/backend/*.css
+/backend/*.css.map
+/backend/*.js
+/backend/*.js.map
 
-# Environment
-.env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+# Django environment
+/backend/.env
+/backend/.env.local
+/backend/.env.development.local
+/backend/.env.test.local
+/backend/.env.production.local
+/backend/venv/  # Virtual environment
 
-# pytest
-.cache/
-.pytest_cache/
+# Django pytest
+/backend/.cache/
+/backend/.pytest_cache/
 
-# mypy
-.mypy_cache/
+# Django mypy
+/backend/.mypy_cache/
 
-# Coverage
-htmlcov/
-.coverage
-.coverage.*
+# Django Coverage
+/backend/htmlcov/
+/backend/.coverage
+/backend/.coverage.*
+
+
+# Venv
+/backend/venv
