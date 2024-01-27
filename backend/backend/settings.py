@@ -26,7 +26,7 @@ if not isinstance(SECRET_KEY, str):
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 AUTH_USER_MODEL = "users.CustomUser"
 
 
@@ -104,12 +104,8 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     },
     'egov': {
+        'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'egov.sqlite3',
-        'ENGINE': 'django.db.backends.sqlite3',
-    },
-    'users': {
-        'NAME': BASE_DIR / 'users.sqlite3',
-        'ENGINE': 'django.db.backends.sqlite3',
     }
 }
 

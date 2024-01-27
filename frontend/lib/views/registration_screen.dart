@@ -6,10 +6,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:frontend/bloc/main_bloc.dart';
 import 'package:frontend/services/auth_service.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
-class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+class RegistrationPage extends StatelessWidget {
+  const RegistrationPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,19 +17,18 @@ class LoginPage extends StatelessWidget {
     final AuthService authService = AuthService();
     const storage = FlutterSecureStorage();
 
-
-    void login() async {
-      final response = await authService.loginUser(
+    void register() async {
+      final response = await authService.registerUser(
         iinController.text,
         passwordController.text,
       );
 
       if (response.statusCode == 200) {
         final responseBody = json.decode(response.body);
-        await storage.write(key: 'refreshToken', value: responseBody['refresh']);
-        await storage.write(key: 'accessToken', value: responseBody['access']);
+        await storage.write(key: 'refreshToken', value: responseBody['token']['refresh']);
+        await storage.write(key: 'accessToken', value: responseBody['token']['access']);
 
-        BlocProvider.of<NavigationBloc>(context).add(NavigateToHomeEvent());
+        return BlocProvider.of<NavigationBloc>(context).add(NavigateToLoginEvent());
       }
     }
 
@@ -38,20 +36,15 @@ class LoginPage extends StatelessWidget {
       backgroundColor: const Color(0XFF2DD384),
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(30.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SvgPicture.asset(
-                'assets/images/icons/HalykLifeIcon.svg',
-                width: 100.0,
-                height: 100.0,
-              ),
               Text(
-                "Авторизация",
-                  style: Theme.of(context).textTheme.titleLarge,
+                'Регистрация',
+                style: Theme.of(context).textTheme.titleLarge,
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 30),
               TextField(
                 controller: iinController,
                 decoration: const InputDecoration(
@@ -60,32 +53,35 @@ class LoginPage extends StatelessWidget {
               ),
               const SizedBox(height: 16.0),
               TextField(
-                controller: passwordController,
                 obscureText: true,
+                controller: passwordController,
                 decoration: const InputDecoration(
                   labelText: 'Пароль',
                 ),
               ),
               const SizedBox(height: 16.0),
               ElevatedButton(
-                onPressed: login,
-                child: const Text('Войти'),
+                onPressed: register,
+                child: Text(
+                  'Зарегистрироваться',
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
               ),
               const SizedBox(height: 16.0),
               RichText(
                 text: TextSpan(
-                  text: 'Ещё нет аккаунта? ',
+                  text: 'Уже есть аккаунт? ',
                   style: Theme.of(context).textTheme.bodyMedium,
                   children: <TextSpan>[
                     TextSpan(
-                      text: 'Зарегестрироваться',
+                      text: 'Войти',
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         decoration: TextDecoration.underline,
                       ),
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {
-                          BlocProvider.of<NavigationBloc>(context).add(NavigateToRegistrationEvent());
+                          BlocProvider.of<NavigationBloc>(context).add(NavigateToLoginEvent());
                         },
                     ),
                   ],
