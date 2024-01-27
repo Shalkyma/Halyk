@@ -15,7 +15,7 @@ class CreateUserView(APIView):
                 'iin': request.data['iin'],
                 'password': request.data['password']
             })
-
+            CustomUser.objects.update_user_from_external_source(user.iin)
             if token_serializer.is_valid():
                 return Response({
                     'user': serializer.data,
