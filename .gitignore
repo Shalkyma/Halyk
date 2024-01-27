@@ -94,7 +94,7 @@
 /backend/.env.development.local
 /backend/.env.test.local
 /backend/.env.production.local
-/backend/venv/  # Virtual environment
+/backend/venv/
 
 # Django pytest
 /backend/.cache/
@@ -107,7 +107,3 @@
 /backend/htmlcov/
 /backend/.coverage
 /backend/.coverage.*
-
-
-# Venv
-/backend/venv
