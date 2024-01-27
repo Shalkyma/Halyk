@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer, TokenRefreshSerializer
 from .models import CustomUser
 
 class CustomUserSerializer(serializers.ModelSerializer):
@@ -14,12 +15,14 @@ class CustomUserSerializer(serializers.ModelSerializer):
         )
         return user
 
-class LoginSerializer(serializers.Serializer):
-    iin = serializers.CharField()
-    password = serializers.CharField()
+class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
+    def validate(self, attrs):
+        data = super().validate(attrs)
 
-    def validate(self, data):
-        user = authenticate(**data)
-        if user and user.is_active:
-            return user
-        raise serializers.ValidationError("Incorrect Credentials")
+        return data
+
+class CustomTokenRefreshSerializer(TokenRefreshSerializer):
+    def validate(self, attrs):
+        data = super().validate(attrs)
+
+        return data

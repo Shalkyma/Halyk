@@ -21,11 +21,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-_k*6o@v$fj5x$bv3cy^4x&^2ybx04j1xk#fjujrw+k32bv6v+-'
-
+if not isinstance(SECRET_KEY, str):
+    raise ValueError("SECRET_KEY must be a string.")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
+AUTH_USER_MODEL = "users.CustomUser"
 
 
 # Application definition
@@ -37,7 +39,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'users',
+    'rest_framework',
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -50,6 +60,21 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'backend.urls'
+
+from datetime import timedelta
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60), 
+    'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
+    'SLIDING_TOKEN_LIFETIME': timedelta(days=30),
+    'SLIDING_TOKEN_REFRESH_COMPENSATION': timedelta(days=1),
+    'SLIDING_TOKEN_REFRESH_OFFSET': timedelta(minutes=30),
+    'ROTATE_REFRESH_TOKENS': False,
+    'ALGORITHM': 'HS256',
+    'SIGNING_KEY': SECRET_KEY,
+    'VERIFYING_KEY': None,
+    'AUTH_HEADER_TYPES': ('Bearer',),
+}
 
 TEMPLATES = [
     {
@@ -77,6 +102,14 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+    },
+    'egov': {
+        'NAME': BASE_DIR / 'egov.sqlite3',
+        'ENGINE': 'django.db.backends.sqlite3',
+    },
+    'users': {
+        'NAME': BASE_DIR / 'users.sqlite3',
+        'ENGINE': 'django.db.backends.sqlite3',
     }
 }
 

@@ -1,20 +1,36 @@
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .serializers import CustomUserSerializer, LoginSerializer
+from .serializers import CustomUserSerializer, CustomTokenObtainPairSerializer, CustomTokenRefreshSerializer
+from .models import CustomUser
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from django.db import IntegrityError
 
 class CreateUserView(APIView):
     def post(self, request):
         serializer = CustomUserSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_BAD_REQUEST)
+            user = serializer.save()
+            token_serializer = CustomTokenObtainPairSerializer(data={
+                'iin': request.data['iin'],
+                'password': request.data['password']
+            })
 
-class LoginView(APIView):
-    def post(self, request):
-        serializer = LoginSerializer(data=request.data)
-        if serializer.is_valid():
-            user = serializer.validated_data
-            return Response({"message": "User logged in"}, status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            if token_serializer.is_valid():
+                return Response({
+                    'user': serializer.data,
+                    'token': token_serializer.validated_data
+                }, status=status.HTTP_201_CREATED)
+            else:
+                print("Token serializer errors:", token_serializer.errors)
+                return Response(token_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            print("User serializer errors:", serializer.errors)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class CustomTokenObtainPairView(TokenObtainPairView):
+    serializer_class = CustomTokenObtainPairSerializer
+
+class CustomTokenRefreshView(TokenRefreshView):
+    serializer_class = CustomTokenRefreshSerializer
