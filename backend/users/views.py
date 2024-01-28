@@ -1,8 +1,8 @@
-from rest_framework import status
+from rest_framework import status, generics
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .serializers import CustomUserSerializer, CustomTokenObtainPairSerializer, CustomTokenRefreshSerializer
-from .models import CustomUser
+from .serializers import CustomUserSerializer, CustomTokenObtainPairSerializer, CustomTokenRefreshSerializer, UserProfileSerializer
+from .models import CustomUser, UserProfile
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from django.db import IntegrityError
 
@@ -34,3 +34,10 @@ class CustomTokenObtainPairView(TokenObtainPairView):
 
 class CustomTokenRefreshView(TokenRefreshView):
     serializer_class = CustomTokenRefreshSerializer
+
+class UserProfileView(viewsets.ModelViewSet):
+    serializer_class = CustomUserSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        return CustomUser.objects.filter(id=self.request.user.id)
